@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8", content="width=device-width">
+    <title>Mission to Mars</title>
+    <!--  CSS Bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css" media="screen">
+    <script src="https://kit.fontawesome.com/f1e181a5ee.js"></script>
+</head>
+
+<body>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- NAVIGATION BAR -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Jason Ree</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About (Under Construction)</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/projects/project_index.html">Projects (Under Construction)</a>
+            </li>
+          </ul>
+        </div>
+      </nav> -->
+    <div class="container">
+      <div class="jumbotron text-center">
+        <h1>Mission to Mars</h1>
+        <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape Data</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 ml-0 flex-left">
+          <h3>Latest Mars News</h3>
+          <h5>{{mars_info.mars_news[0].title}}</h5>
+          <h6>{{mars_info.mars_news[0].paragraph}}</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h3>Featured Mars Image</h3>
+          <img style="display: block" src={{mars_info.mars_img[31]}}>
+        </div>
+        <div class="col-sm-4">
+          <div class="container card" style="padding-top: 30px; padding-bottom: 30px;">
+            <h5>Current Weather on Mars<br></h5>
+            <h6>{{mars_info.mars_weather[0]}}</h6>
+          </div>
+          <div class="container" style="padding-top: 30px">
+            <h5>Mars Facts</h5>
+            <div class="table-sm table-responsive-xl table-striped table-hover">
+              {{mars_info.mars_facts[1] | safe}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="container">
+            <h3 style="text-align: center; margin-top: 35px">Mars Hemispheres<br></h3>
+            <div class="row">
+              <div class="col-sm-6">
+                  <img src={{mars_info.mars_hemispheres[0].img_url}}>
+                  <h4>{{mars_info.mars_hemispheres[0].title}}</h4>
+              </div>
+              <div class="col-sm-6">
+                  <img src={{mars_info.mars_hemispheres[1].img_url}}>
+                  <h4>{{mars_info.mars_hemispheres[1].title}}</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                  <img src={{mars_info.mars_hemispheres[2].img_url}}>
+                  <h4>{{mars_info.mars_hemispheres[2].title}}</h4>
+              </div>
+              <div class="col-sm-6">
+                  <img src={{mars_info.mars_hemispheres[3].img_url}}>
+                  <h4>{{mars_info.mars_hemispheres[3].title}}</h4>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>         
+    </div>  
+</body>
+</html>

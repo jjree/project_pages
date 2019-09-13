@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8", content="width=device-width">
+    <title>Lattitude</title>
+    <!--  CSS Bootstrap  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jjree.github.io/projects/11-Web_Development/static/css/styles.css" type="text/css" media="screen">
+    <script src="https://kit.fontawesome.com/f1e181a5ee.js"></script>
+</head>
+
+<body>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand topnav" href="https://jjree.github.io/projects/11-Web_Development/templates/landing_bs1.html">Lattitude</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse nav navbar-nav" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-lg-auto ml-sm-0">
+                <li class="nav-item dropdown">
+                    <a class="smlll nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plots</a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/maxtemp.html">Max Temperature</a>
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/humidity.html">Humidity</a>
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/cloudiness.html">Cloudiness</a>
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/windspeed.html">Wind Speed</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://jjree.github.io/projects/11-Web_Development/templates/comparison.html">Comparison</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://jjree.github.io/projects/11-Web_Development/templates/data.html">Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+  <!-- MAIN -->
+  <main>
+      <div class="container container-fluid" style="margin-left:5px; margin-right:5px; width:100%; height: 100%;">
+          <div class="row" style="align-content: center;">
+              <div class="col-md-8" style="align-content: center;">
+                  <article class="container post clearfix">
+                      <h3>Cloudiness<br></h3>
+                      <div class=section-line><br><br></div>
+                      <img id="floated" src="../static/resources/assets/images/Fig3.png" alt="cloudiness"> 
+                      <h5><br><br>The cloudiness can be observed to have no relationship to the latitude. However interestingly, horizontally linear lines are present in the visualization, which illustrates that clouds may stretch widely over large regions despite their latitude. </h5>
+                            </article>
+              </div>
+              <div class="col-md-4">
+                  <article class="container post">
+                  <h3>Visualizations</h3>
+                  <div class=section-line><br><br></div>
+                  <div class="container">
+                      <div class="row">
+                      <div class="col-md-6">
+                          <img class=hoverable-image src="../static/resources/assets/images/Fig1.png" onclick="window.location.href='https://jjree.github.io/projects/11-Web_Development/templates/maxtemp.html'">
+                      </div>
+                      <div class="col-md-6">
+                          <img class=hoverable-image src="../static/resources/assets/images/Fig2.png" onclick="window.location.href='https://jjree.github.io/projects/11-Web_Development/templates/humidity.html'">
+                      </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <img class=hoverable-image src="../static/resources/assets/images/Fig3.png" onclick="window.location.href='https://jjree.github.io/projects/11-Web_Development/templates/cloudiness.html'">
+                          </div>
+                          <div class="col-md-6">
+                              <img class=hoverable-image src="../static/resources/assets/images/Fig4.png" onclick="window.location.href='https://jjree.github.io/projects/11-Web_Development/templates/windspeed.html'">
+                          </div>
+                      </div>
+                  </div>
+                  </article>
+              </div>
+
+          </div>
+      </div>
+  </main>
+
+  <!-- FOOTER -->
+  <div class=footer_line></div>
+  <footer>
+    <p>&copy; Copyright JJREE Coding Bootcamp 2019</p>
+  </footer>
+
+</body>
+</html>

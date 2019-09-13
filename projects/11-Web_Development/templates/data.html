@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8", content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Lattitude</title>
+    <!--  CSS + Bootstrap  -->
+    <!-- <link href="../csv-to-html-table/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../csv-to-html-table/css/dataTables.bootstrap.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://jjree.github.io/projects/11-Web_Development/static/css/styles.css" type="text/css" media="screen">
+    <script src="https://kit.fontawesome.com/f1e181a5ee.js"></script>
+</head>
+
+<body>
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand topnav" href="https://jjree.github.io/projects/11-Web_Development/templates/landing_bs1.html">Lattitude</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse nav navbar-nav" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-lg-auto ml-sm-0">
+                <li class="nav-item dropdown">
+                    <a class="smlll nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plots</a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm-left" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/maxtemp.html">Max Temperature</a>
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/humidity.html">Humidity</a>
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/cloudiness.html">Cloudiness</a>
+                        <a class="dropdown-item"href="https://jjree.github.io/projects/11-Web_Development/templates/windspeed.html">Wind Speed</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://jjree.github.io/projects/11-Web_Development/templates/comparison.html">Comparison</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://jjree.github.io/projects/11-Web_Development/templates/data.html">Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main>
+        <div class="container container-fluid">
+            <div class="row" style="align-content: center;">
+                <div class="col-md-12" style="align-content: center;">  
+                    <article class="container post clearfix">
+                    <h3>Data<br></h3>
+                    <div class=section-line><br><br></div>
+                    <h5><br><br>The following table includes all of the data used for plotting during this project.<br/><br/></h5>
+
+
+                        <div id='table-container' class="table-sm table-responsive-xl table-striped table-hover"></div>
+
+                  </article>
+              </div>
+          </div>
+        </div>
+    </main>
+
+
+
+
+    <div class='container-fluid'>
+        <hr />
+        <p class='pull-right'><a href='https://github.com/derekeder/csv-to-html-table'>CSV to HTML Table</a> by <a href='http://derekeder.com'>Derek Eder</a></p>
+    </div>
+
+  <div class=footer_line></div>
+  <footer>
+    <p>&copy; Copyright JJREE Coding Bootcamp 2019</p>
+  </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../csv-to-html-table/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../csv-to-html-table/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../csv-to-html-table/js/jquery.csv.min.js"></script>
+    <script type="text/javascript" src="../csv-to-html-table/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../csv-to-html-table/js/dataTables.bootstrap.js"></script>
+    <script type="text/javascript" src="../csv-to-html-table/js/csv_to_html_table.js"></script>
+
+    <script type="text/javascript">
+        function format_link(link){
+          if (link)
+            return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+          else
+            return "";
+        }
+  
+        CsvToHtmlTable.init({
+          csv_path: '../static/resources/cities.csv',
+          element: 'table-container', 
+          allow_download: false,
+          csv_options: {separator: ',', delimiter: '"'},
+          datatables_options: {"paging": false},
+          custom_formatting: [[4, format_link]]
+        });
+      </script>
+  
+  <!-- <script>
+    //var csv is the CSV file with headers
+    function csvJSON(csv){
+      var lines=csv.split("\n");
+      var result = [];
+      var headers=lines[0].split(",");
+
+      for(var i=1;i<lines.length;i++){
+        var obj = {};
+        var currentline=lines[i].split(",");
+
+        for(var j=0;j<headers.length;j++){
+          obj[headers[j]] = currentline[j];
+        }
+        result.push(obj);
+      }
+      //return result; //JavaScript object
+      return JSON.stringify(result); //JSON
+    }
+  </script> -->
+    <!-- <script src="d3.min.js?v=3.2.8"></script>
+    <script type="text/javascript"charset="utf-8">
+        d3.text("/static/resources/cities.csv", function(data) {
+            var parsedCSV = d3.csv.parseRows(data);
+
+            var container = d3.select("body")
+                .append("table")
+
+                .selectAll("tr")
+                    .data(parsedCSV).enter()
+                    .append("tr")
+
+                .selectAll("td")
+                    .data(function(d) { return d; }).enter()
+                    .append("td")
+                    .text(function(d) { return d; });
+        });
+    </script> -->
+</body>
+</html>
