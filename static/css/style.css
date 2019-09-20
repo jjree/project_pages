@@ -91,8 +91,12 @@ select {
   display: inline;
   padding: 20px;
   margin:0;
-  height: 100px;
-  widows: 100px;
+  height: 100%;
+  max-height: 150px;
+  width: 100%;
+  max-width: 150px;
+  border-radius: 5%;
+  overflow: hidden;
   /* height: 20%;
   width: 20%; */
   /* background-image: url("projects/01-Excel/Homework/Instructions/Images/SubcategoryStats.PNG");
@@ -104,8 +108,12 @@ select {
   vertical-align: bottom;
 }
 .project-box{
-  border-color: black;
+  border-block-color: green;
   border-color: red;
+  background-color: rgba(114, 114, 114, 0.548);
+  padding:5px;
+  margin: 5px;
+  border-radius: 0%;
 }
 
 /* The styles for the parallax */
