@@ -11,6 +11,13 @@ body {
   margin: 0;
 }
 
+.stationary{
+  position: fixed;
+  width: 100%;
+  /* display: inline; */
+  z-index: 9999;
+}
+
 /* The wrapper contains all of the page's content besides the footer, which is pushed to the bottom of the page */
 .wrapper {
   position: relative;
@@ -135,7 +142,7 @@ select {
 
 .hero h1 {
   margin-top: 200px;
-  font-size: 2 rem;
+  font-size: 1rem;
   color: white;
   animation: title 1.2s forwards linear;
 }
