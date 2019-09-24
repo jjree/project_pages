@@ -29,7 +29,7 @@ body {
 
 /* The footer is positioned at the bottom of the page */
 .footer {
-  position: absolute;
+  /* position: absolute; */
   right: 0;
   bottom: 0;
   left: 0;
