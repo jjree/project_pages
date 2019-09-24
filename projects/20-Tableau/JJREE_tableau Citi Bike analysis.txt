@@ -1,0 +1,39 @@
+Citi Bike Ridership Statistics: 
+"Who is riding our bikes?"  
+
+Subscribers have shown a promising increase over observed range of 
+dates. There were more male riders than female riders and most riders 
+are subscribers.
+
+Phenomenon 1: 
+"Which locations are popular?" 
+
+Top starting stations overlap quite heavily with top ending stations. 
+The least popular starting and ending stations also display overlap. 
+Such a phenomenon can be assumed to be affected by the location of the station 
+(locations with NYC landmarks or high number of workplaces). Making 
+sure enough bikes are available in highly popular stations will be 
+crucial to the Citi Bike Program; also observation of whether other 
+factors (not location)  are affecting less popular sites is needed 
+to boost the usage of these stations.
+
+Phenomenon2: 
+"Are all bikes used equally?" 
+
+Some bikes were found to be more "popular" than others, possibly due 
+to their starting location (further investigation is needed to prove 
+this). Also this dashboard provides vital information of which bikes 
+may need repair/maintenance relative to their frequency and duration of usage.
+
+Appendix: 
+Observation of Top Routes Taken by Riders. 
+I wanted to see whether mapping the most popular routes (start-end stations) 
+would provide interesting results because it would provide intriguing information
+of where people were traveling from specific starting stations, in particular the 
+most popular stations. 
+
+Appendix: 
+Overview of Trip Distance and observation of trip distance per age. 
+
+It can be observed that riders around the 20s-40s ride bikes the longest durations. 
+The trip distances were quite spread out with an average distance of 2.12 miles.
