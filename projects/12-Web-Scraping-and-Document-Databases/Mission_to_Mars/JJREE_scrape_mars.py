@@ -28,7 +28,9 @@ app = Flask(__name__)
 #################################################
 
 # Initialize PyMongo to work with MongoDBs
-app.config["MONGO_URI"] = "mongodb://localhost:27017/mars_db"
+
+app.config['MONGO_URI'] = os.environ.get('MONGODB_URI', '') or "mongodb://localhost:27017/mars_db"
+# mongodb://<dbuser>:<dbpassword>@ds133856.mlab.com:33856/heroku_3n5ckfjb
 # client = MongoClient('mongodb://localhost:27017/')
 mongo = PyMongo(app)
 
