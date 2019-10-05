@@ -8,7 +8,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -18,8 +18,11 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/bellybutton.sqlite"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/bellybutton.sqlite"
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('postgres://saangbrfmehpeo:1b3dc2d8f1acb7cff210a7d790a92a15d99e51ea949d497ebecd2c2544cd50f8@ec2-54-83-9-169.compute-1.amazonaws.com:5432/dt3scf7mg02u5', '')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', '') or "sqlite:///db/bellybutton.sqlite"
 db = SQLAlchemy(app)
+
 
 # reflect an existing database into a new model
 Base = automap_base()
