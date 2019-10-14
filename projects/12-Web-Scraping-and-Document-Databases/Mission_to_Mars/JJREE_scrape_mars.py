@@ -15,6 +15,16 @@ import numpy as np
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
 
+# ADDITIONS FOR HEROKU DEPLOYMENT
+from selenium import webdriver
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+
 
 
 
@@ -29,9 +39,11 @@ app = Flask(__name__)
 
 # Initialize PyMongo to work with MongoDBs
 
-app.config['MONGO_URI'] = os.environ.get('MONGODB_URI', '') or "mongodb://localhost:27017/mars_db"
+app.config['MONGO_URI'] = os.environ.get('MONGODB_URI') or "mongodb://localhost:27017/mars_db"
+
 # mongodb://<dbuser>:<dbpassword>@ds133856.mlab.com:33856/heroku_3n5ckfjb
 # client = MongoClient('mongodb://localhost:27017/')
+# client = client.heroku_3n5ckfjb
 mongo = PyMongo(app)
 
 #################################################
