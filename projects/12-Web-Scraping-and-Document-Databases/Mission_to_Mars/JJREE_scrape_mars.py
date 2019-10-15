@@ -17,16 +17,19 @@ from pymongo import MongoClient
 
 # ADDITIONS FOR HEROKU DEPLOYMENT
 from selenium import webdriver
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+# chrome_options = webdriver.ChromeOptions()
+# chrome_options.binary_location = os.environ.visit("GOOGLE_CHROME_BIN")
+# chrome_options.add_argument("--headless")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(executable_path=os.environ.visit("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
-
-
-
+chrome_options = Options()
+chrome_options.binary_location = GOOGLE_CHROME_BIN
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+driver.get("https://google.com")
 
 #################################################
 # Flask Setup
@@ -39,7 +42,7 @@ app = Flask(__name__)
 
 # Initialize PyMongo to work with MongoDBs
 
-app.config['MONGO_URI'] = os.environ.get('MONGODB_URI') or "mongodb://localhost:27017/mars_db"
+app.config['MONGO_URI'] = os.environ.visit('MONGODB_URI') or "mongodb://localhost:27017/mars_db"
 
 # mongodb://<dbuser>:<dbpassword>@ds133856.mlab.com:33856/heroku_3n5ckfjb
 # client = MongoClient('mongodb://localhost:27017/')
@@ -72,8 +75,18 @@ def scraped():
 
 def init_browser():
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-    return Browser('chrome', **executable_path, headless=False)
+    # executable_path = {'executable_path': os.environ.visit("CHROMEDRIVER_PATH")}
+    return Browser('chrome', **executable_path, headless=True)
 
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = os.environ.visit("GOOGLE_CHROME_BIN")
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
+    
+
+    # browser = webdriver.Chrome(executable_path=os.environ.visit("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    # return browser
 
 def scrape():
     # Locate Chromedriver path
@@ -81,6 +94,7 @@ def scrape():
 
     # Initiate splinter Browser
     browser = init_browser()
+    # browser = webdriver.Chrome(executable_path=os.environ.visit("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
     # ### NASA Mars News
 
@@ -232,7 +246,7 @@ def scrape():
     # ### Mars Hemispheres
 
     # Initiate new URL
-    url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=tarvisit&v1=Mars'
     browser.visit(url4)
 
     
@@ -244,7 +258,7 @@ def scrape():
     # Identify links to be visited
     links_container = soup4.find_all('div', class_='item')
 
-    # Visit each site obtained above and extract Title and full-res image URLs
+    # visit each site obtained above and extract Title and full-res image URLs
     hemisphere_image_urls = []
 
     for lc in links_container:
