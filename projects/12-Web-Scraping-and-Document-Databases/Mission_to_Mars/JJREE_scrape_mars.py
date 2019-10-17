@@ -18,18 +18,16 @@ from pymongo import MongoClient
 # ADDITIONS FOR HEROKU DEPLOYMENT
 from selenium import webdriver
 # chrome_options = webdriver.ChromeOptions()
-# chrome_options.binary_location = os.environ.visit("GOOGLE_CHROME_BIN")
+# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # chrome_options.add_argument("--headless")
 # chrome_options.add_argument("--disable-dev-shm-usage")
 # chrome_options.add_argument("--no-sandbox")
-# driver = webdriver.Chrome(executable_path=os.environ.visit("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+# driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
-chrome_options = Options()
-chrome_options.binary_location = GOOGLE_CHROME_BIN
-chrome_options.add_argument('--disable-gpu')
-chrome_options.add_argument('--no-sandbox')
-driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
-driver.get("https://google.com")
+
+
+
+
 
 #################################################
 # Flask Setup
@@ -42,17 +40,18 @@ app = Flask(__name__)
 
 # Initialize PyMongo to work with MongoDBs
 
-app.config['MONGO_URI'] = os.environ.visit('MONGODB_URI') or "mongodb://localhost:27017/mars_db"
+# app.config['MONGO_URI'] = os.environ.get('MONGODB_URI') or "mongodb://localhost:27017/mars_db"
+app.config['MONGO_URI'] = os.environ.get('MONGODB_URI') or "mongodb://localhost:27017/mars_db"
 
 # mongodb://<dbuser>:<dbpassword>@ds133856.mlab.com:33856/heroku_3n5ckfjb
 # client = MongoClient('mongodb://localhost:27017/')
 # client = client.heroku_3n5ckfjb
-mongo = PyMongo(app)
+mongo = PyMongo(app) 
+
 
 #################################################
 # Flask Routes
 #################################################
-
     
 # * A [landing page](#landing-page) containing:
 #   * An explanation of the project.
@@ -64,7 +63,7 @@ def index():
     else:
         mars_info = mongo.db.mars_info.find_one()
 
-    return render_template('/index.html', mars_info=mars_info)
+    return render_template('index.html', mars_info=mars_info)
 
 @app.route("/scrape")
 def scraped():
@@ -75,71 +74,138 @@ def scraped():
 
 def init_browser():
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-    # executable_path = {'executable_path': os.environ.visit("CHROMEDRIVER_PATH")}
+    # executable_path = {'executable_path': os.environ.get("CHROMEDRIVER_PATH")}
     return Browser('chrome', **executable_path, headless=True)
 
     # chrome_options = webdriver.ChromeOptions()
-    # chrome_options.binary_location = os.environ.visit("GOOGLE_CHROME_BIN")
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     # chrome_options.add_argument("--headless")
     # chrome_options.add_argument("--disable-dev-shm-usage")
     # chrome_options.add_argument("--no-sandbox")
     
 
-    # browser = webdriver.Chrome(executable_path=os.environ.visit("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    # browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     # return browser
+
+# def init_browser1():
+
+#     GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+#     CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+#     chrome_options = webdriver.ChromeOptions()
+#     chrome_options.binary_location = GOOGLE_CHROME_BIN
+#     chrome_options.add_argument("--headless")
+#     chrome_options.add_argument('--disable-gpu')
+#     chrome_options.add_argument('--no-sandbox')
+#     chrome_options.binary_location = GOOGLE_CHROME_PATH
+#     browser = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+#     return browser
+
 
 def scrape():
     # Locate Chromedriver path
     #!which chromedriver
 
     # Initiate splinter Browser
-    browser = init_browser()
-    # browser = webdriver.Chrome(executable_path=os.environ.visit("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    # browser = init_browser()
+    # browser = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
+    # TESTING Sonyasha
+    CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
+    
+    chrome_options = webdriver.ChromeOptions()
+    
+    chrome_options.binary_location = '.apt/usr/bin/google-chrome-stable'
+    chrome_options.add_argument('--disable-gpu')
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('headless')
+    
+    browser = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+    print('browser is ready')
+
+
+    #
     # ### NASA Mars News
 
-    # Initiate new url and browser to visit it
+    # Initiate new url and browser to get it
     url = 'https://mars.nasa.gov/news/'
-    browser.visit(url)
-
-    
+    browser.get(url)
 
     # Extract HTML from site and parse with BS
-    html = browser.html
+    html = browser.page_source
     soup = bs(html, 'html.parser')
 
     # Find and print titles of stories
-    title_list = []
-    story_list = soup.find_all('ul', class_='item_list')
+    # titles = []
+    # title_list = []
+    title = ""
+    para = ""
+
+    story_list = soup.find_all('div', class_='grid_layout')
 
     for story in story_list:
-        titles = story.find_all('h3')
-        
-    for title in titles:
-        print(title.text)
-        title_list.append(title.text)
+        try: 
+            title = story.find('div', class_='content_title').find('a').get_text()
+            para = soup.find('article_teaser_body').get_text()
+        except AttributeError:
+            pass
 
-    # Find and print paragraphs of featured stories
-    paras_list=[]
-    paras = story.find_all('div', class_='article_teaser_body')
-    for para in paras:
-        print(para.text)
-        paras_list.append(para.text)
+    #-----------
+    # story_list = soup.find_all('ul', class_='item_list ')
+
+    # for story in story_list:
+    #     title = story.find('div', class_='content_title').find('a').text
+    #     para = story.find('article_teaser_body').text
+    #     break
+    #-----------
+    title = soup.find('div', class_='content_title').find('a').get_text()
+    para = soup.find('article_teaser_body').get_text()
+
+    # title = soup.find('ul', class_='item_list ').find('li', class_='slide').find('div', class_='content_title').find('a').get_text()
+    # para = soup.find('ul', class_='item_list ').find('li', class_='slide').find('div', class_='article_teaser_body').get_text()
+
+    # for story in story_list:
+    # title = story_list.find('div', class_='content_title').find('a').text
+    # para = story_list.find('article_teaser_body').text
+
+    print(story_list)
+    print(title)
+    print(para)
+
+    # for title in titles:
+    #     print(title.text)
+    #     title_list.append(title.text)
+
+    # # Find and print paragraphs of featured stories
+    # paras_list=[]
+    # paras = story.find_all('div', class_='article_teaser_body')
+    # for para in paras:
+    #     print(para.text)
+    #     paras_list.append(para.text)
+
+
+
+    # news_title = soup.find('ul', class_='item_list ').find('li', class_='slide').find('div', class_='content_title')\
+    # .find('a').get_text()
+
+    # news_p = soup.find('ul', class_='item_list ').find('li', class_='slide')\
+    # .find('div', class_='article_teaser_body').get_text()
+
+    # mars_news = [{"title": news_title, "paragraph": news_p}]
 
     # STORE OUTPUT
-    mars_news = [{"title": title, "paragraph": para} for title,para in zip(title_list, paras_list)]
+    # mars_news = [{"title": title, "paragraph": para} for title,para in zip(title_list, paras_list)]
+    mars_news = [{"title": title, "paragraph": para}]
     print (mars_news) 
+
 
     # ### JPL Mars Space Images - Featured Image
 
-    # Initiate new url and browser to visit it
+    # Initiate new url and browser to get it
     url1 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
-    browser.visit(url1)
-
-    
+    browser.get(url1)
 
     # Extract HTML from site
-    html1 = browser.html
+    html1 = browser.page_source
     soup1 = bs(html1, 'html.parser')
 
     # Locate images
@@ -153,8 +219,8 @@ def scrape():
     # html1_1 = browser.click_link_by_text('more info     ')
 
     link = "https://www.jpl.nasa.gov" + soup1.find('footer').a['data-link']
-    browser.visit(link)
-    html1_1 = browser.html
+    browser.get(link)
+    html1_1 = browser.page_source
     soup1_1 = bs(html1_1, 'html.parser')
     main_image = soup1_1.find('figure', class_='lede').a['href']
     main_image = "https://www.jpl.nasa.gov" + main_image
@@ -177,14 +243,14 @@ def scrape():
 
     # ### Mars Weather
 
-    # Initiate new url and browser to visit it
+    # Initiate new url and browser to get it
     url2 = 'https://twitter.com/marswxreport?lang=en'
-    browser.visit(url2)
+    browser.get(url2)
 
     
 
     # Extract HTML from site
-    html2 = browser.html
+    html2 = browser.page_source
     soup2 = bs(html2, 'html.parser')
 
     # Find and print Mars Weather
@@ -246,30 +312,30 @@ def scrape():
     # ### Mars Hemispheres
 
     # Initiate new URL
-    url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=tarvisit&v1=Mars'
-    browser.visit(url4)
+    url4 = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    browser.get(url4)
 
     
 
     # Extract HTML from site
-    html4 = browser.html
+    html4 = browser.page_source
     soup4 = bs(html4, 'html.parser')
 
-    # Identify links to be visited
+    # Identify links to be geted
     links_container = soup4.find_all('div', class_='item')
 
-    # visit each site obtained above and extract Title and full-res image URLs
+    # get each site obtained above and extract Title and full-res image URLs
     hemisphere_image_urls = []
 
     for lc in links_container:
-        # Find link to visit and visit it
+        # Find link to get and get it
         link = lc.a['href']
         full_link = "https://astrogeology.usgs.gov" + link
-        browser.visit(full_link)
+        browser.get(full_link)
         
             
 
-        click_soup = bs(browser.html, 'html.parser')
+        click_soup = bs(browser.page_source, 'html.parser')
         
         # Find title
         title = click_soup.find('h2').text.strip('Enhanced').rstrip()
@@ -284,7 +350,7 @@ def scrape():
         hemisphere_image_urls.append({"title": title, "img_url": img_url})
         
         # Return to starting page (used for testing purposes)
-        browser.visit(url4)
+        browser.get(url4)
 
         
 
@@ -312,7 +378,7 @@ def scrape():
 
 # Define main behavior
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
 
 
 
