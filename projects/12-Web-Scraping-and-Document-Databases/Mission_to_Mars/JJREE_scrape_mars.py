@@ -14,6 +14,7 @@ import csv
 import numpy as np
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+import time
 
 # ADDITIONS FOR HEROKU DEPLOYMENT
 from selenium import webdriver
@@ -129,10 +130,13 @@ def scrape():
     # Initiate new url and browser to get it
     url = 'https://mars.nasa.gov/news/'
     browser.get(url)
+    time.sleep(3)
 
     # Extract HTML from site and parse with BS
     html = browser.page_source
     soup = bs(html, 'html.parser')
+    print("=========PRINTING SOUP =============================")
+    print(soup)
 
     # Find and print titles of stories
     # titles = []
@@ -140,7 +144,10 @@ def scrape():
     title = ""
     para = ""
 
+    # story_list = soup.find_all('ul', class_='item_list ')
     story_list = soup.find_all('div', class_='grid_layout')
+    print("PRINT STORY LIST")
+    print(story_list)
 
     for story in story_list:
         try: 
@@ -153,12 +160,12 @@ def scrape():
     # story_list = soup.find_all('ul', class_='item_list ')
 
     # for story in story_list:
-    #     title = story.find('div', class_='content_title').find('a').text
-    #     para = story.find('article_teaser_body').text
+    #     title = story.find('div', class_='content_title').find('a').get_text()
+    #     para = story.find('article_teaser_body').get_text()
     #     break
     #-----------
-    title = soup.find('div', class_='content_title').find('a').get_text()
-    para = soup.find('article_teaser_body').get_text()
+    # title = soup.find('div', class_='content_title').find('a').get_text()
+    # para = soup.find('article_teaser_body').get_text()
 
     # title = soup.find('ul', class_='item_list ').find('li', class_='slide').find('div', class_='content_title').find('a').get_text()
     # para = soup.find('ul', class_='item_list ').find('li', class_='slide').find('div', class_='article_teaser_body').get_text()
@@ -192,6 +199,8 @@ def scrape():
 
     # mars_news = [{"title": news_title, "paragraph": news_p}]
 
+
+
     # STORE OUTPUT
     # mars_news = [{"title": title, "paragraph": para} for title,para in zip(title_list, paras_list)]
     mars_news = [{"title": title, "paragraph": para}]
@@ -203,6 +212,7 @@ def scrape():
     # Initiate new url and browser to get it
     url1 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.get(url1)
+    time.sleep(3)
 
     # Extract HTML from site
     html1 = browser.page_source
